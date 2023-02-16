@@ -110,6 +110,35 @@ header
 
 
 /* styles for mobile portrait screen */
+/* TODO change to 480px */
+@media only screen and (max-width: 480px)
+{
+    :root
+    {
+        --card-font-size: 100%;
+        --header-font-size: 4em;
+    }
+
+    .card
+    {
+        width: 100%;
+    }
+}
 
 
 /* styles for tablet portrait and mobile landscape screens */
+/* TODO change to 481px */
+@media only screen and (min-width: 481px) and (max-width: 768px)
+{
+    :root
+    {
+        --card-font-size: 100%;
+        --header-font-size: 24px;
+        --header-height: 5em;
+    }
+
+    .card
+    {
+        width: 45%;
+    }
+}
