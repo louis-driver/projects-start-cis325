@@ -2,6 +2,7 @@
     --color-primary: #ff6e40;
     --color-back-light: #ECEFF1;
     --color-back-dark: #37474f;
+    --color-box-shadow: #37474f80;
     --spacer-base: 1em;
     --card-font-size: 90%;
     --header-font-size: 32px;
@@ -16,7 +17,6 @@ header {
    padding: 0 var(--spacer-base);
    background-color: var(--color-back-dark);
    height: var(--header-height);
-
 }
 header h1 {
     margin: 0;   
@@ -56,12 +56,60 @@ button {
 
 
 
-/* add your styles here */
+/* My styles added here for ease of viewing changes */
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card
+{
+    width: 24%;
+}
+
+.card img
+{
+    max-width: 100%;
+}
+
+.card-actions
+{
+    opacity: 0;
+}
+
+.card:hover
+{
+    box-shadow: 0.25em 0.25em 0.25em 0.25em var(--color-box-shadow);
+}
+
+.thumbnail:hover
+{
+    filter: saturate(150%);
+}
+
+.card:hover .card-actions
+{
+    opacity: 1;
+}
 
 
-
-
-/* styles for mobile protrait screen */
+/* styles for mobile portrait screen */
 
 
 /* styles for tablet portrait and mobile landscape screens */
