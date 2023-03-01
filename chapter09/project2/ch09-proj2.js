@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function()
     parent.addEventListener("click", function(e){
         if (e.target && e.target.nodeName == "IMG")
         {
-            
+            console.log(document.querySelector("#details").innerHTML);
             //update the details section with e's info
             let key = e.target.dataset.key;
             let painting;
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function()
                     painting = paintings[i];
             }
             document.querySelector("#title").textContent = painting.title;
+            document.querySelector("#artist").textContent = painting.artist;
         }
     })
 
