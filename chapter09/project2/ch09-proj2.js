@@ -42,18 +42,20 @@ document.addEventListener("DOMContentLoaded", function()
             //Draw a rectangle for each feture in the painting
             for (let i=0; i<painting.features.length; ++i)
             {
-                let feature = painting.features[i]
+                let feature = painting.features[i];
                 let box = document.createElement("div");
                 box.className = "box";
                 box.style = "position:absolute;left:"+feature.upperLeft[0]+"px;top:"
                     +feature.upperLeft[1]+"px;width:"+(feature.lowerRight[0]-feature.upperLeft[0])
                     +"px;height:"+(feature.lowerRight[1]-feature.upperLeft[1])+"px;";
-                console.log(box.style);
+                box.addEventListener("mouseout", function(e){
+                    f("#description").textContent = "";
+                })
+                box.addEventListener("mouseover", function(e){
+                    f("#description").textContent = feature.description;
+                })
                 figure.appendChild(box);
             }
-
         }
     })
-
-    console.log(paintings);
 })
