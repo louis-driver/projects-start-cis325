@@ -1,4 +1,21 @@
+import * as plays from "./play-module.js";
 
+async function getPlay(url)
+{
+   try {
+      let response = await fetch(url);
+      console.log(response);
+      let data = await response.json();
+      console.log(typeof data);
+      console.log(data);
+      let play = new plays.Play(data);
+      play.print();
+      return play;
+   }
+   catch (err) {
+      console.log('Data could not be fetched');
+   }
+}
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -20,4 +37,12 @@ document.addEventListener("DOMContentLoaded", function() {
        Some possibilities: if using Visual Code, use Live Server extension; if Brackets,
        use built-in Live Preview.
     */
+
+   //Add event listeners to update the DOM
+   //const play = new plays.Play(jcaesar);
+   //console.log(play.title);
+
+   let currUrl = url + '?name=jcaesar';
+   const jcaesar = getPlay(currUrl); //getPlay isn't fullfilled when called, so jcaesar can't be used yet
+   // go to page 521
 });
