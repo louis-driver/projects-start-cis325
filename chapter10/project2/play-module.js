@@ -10,7 +10,6 @@ export class Play
         this.persona = content.persona;
         this.acts = new Array();
         for (let act of content.acts) {
-            console.log(act);
             this.acts.push(new Act(act));
         }   
     }
