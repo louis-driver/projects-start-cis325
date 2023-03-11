@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
    //TODO maybe separate each selectList into their own event listener
    playList.addEventListener('change', async function(e)
    {
+      actList.innerHTML = '';
+      sceneList.innerHTML = '';
       if (e.target.value != 0) {
       //get the play
       let playUrl = url + '?name=' + e.target.value;
@@ -43,10 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
       qs('#playHere h2').textContent = play.title;
 
       actList.innerHTML = '';
+      let option;
       //populate the select list for the acts
-      let option = ce('option');
-      option.textContent = 'ACTS';
-      actList.appendChild(option);
       for (let act of play.acts)
       {
          option = ce('option');
@@ -54,27 +54,28 @@ document.addEventListener("DOMContentLoaded", function() {
          actList.appendChild(option);
       }
 
-      sceneList.innerHTML = '';
-      let sceneOption = ce('option');
-      sceneOption.textContent = 'Scenes';
-      sceneList.appendChild(sceneOption);
+      //Set initial scene to first scene
+      for (let scene of play.acts[0].scenes)
+      {
+         option = ce('option');
+         option.textContent = scene.name;
+         sceneList.appendChild(option);
+      }
 
-      //find scenes for current act
+      //find scenes if act changes
       actList.addEventListener('change', function (e)
       {
          //gets the current act from select list
          let currAct = play.acts.find(act => act.name === e.target.value);
 
          //populate scenes based on current act
+         sceneList.innerHTML = '';
          let option;
-         if (e.target.value != 'ACTS')
+         for (let scene of currAct.scenes)
          {
-            for (let scene of currAct.scenes)
-            {
-               option = ce('option');
-               option.textContent = scene.name;
-               sceneList.appendChild(option);
-            }
+            option = ce('option');
+            option.textContent = scene.name;
+            sceneList.appendChild(option);
          }
       });
       //populate select list for characters
