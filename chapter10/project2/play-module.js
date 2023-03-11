@@ -2,15 +2,16 @@
 
 export class Play
 {
-    constructor(content)
+    constructor(content, document)
     {
         //Assign values
+        this.document = document;
         this.title = content.title;
         this.titleShort = content.short;
         this.persona = content.persona;
         this.acts = new Array();
         for (let act of content.acts) {
-            this.acts.push(new Act(act));
+            this.acts.push(new Act(act, document));
         }   
     }
 
@@ -26,18 +27,22 @@ export class Play
 
 class Act
 {
-    constructor(act)
+    constructor(act, document)
     {
         //Assign values
+        //this.document = document;
         this.name = act.name;
         this.scenes = new Array();
         for (let scene of act.scenes) {
-            this.scenes.push(scene);
+            this.scenes.push(new Scene(scene));
         }
-
     }
     //Some function
     //functionName() { do something / return something}
+    makeMarkup()
+    {
+        return 0;
+    }
 }
 
 class Scene
@@ -45,6 +50,7 @@ class Scene
     constructor(scene)
     {
         //Assign values
+        //this.document = document;
         this.name = scene.name;
         this.title = scene.title;
         this.stageDirection = scene.stageDirection;
@@ -55,4 +61,14 @@ class Scene
     }
     //Some function
     //functionName() { do something / return something}
+    makeMarkup()
+    {
+        let div = document.createElement('div');
+        div.id = 'sceneHere';
+        let sceneName = document.createElement('h4');
+        sceneName.textContent = this.name;
+
+        div.appendChild(sceneName);
+        document.querySelector('#actHere').appendChild(div);
+    }
 }
