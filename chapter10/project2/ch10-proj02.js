@@ -29,12 +29,14 @@ document.addEventListener("DOMContentLoaded", function() {
    const playList = qs('#playList');
    let actList = qs('#actList');
    let sceneList = qs('#sceneList');
+   let playerList = qs('#playerList');
    let play;
    //TODO maybe separate each selectList into their own event listener
    playList.addEventListener('change', async function(e)
    {
       actList.innerHTML = '';
       sceneList.innerHTML = '';
+      playerList.innerHTML = '<option value=0>All Players</option>';
       if (e.target.value != 0) {
       //get the play
       let playUrl = url + '?name=' + e.target.value;
@@ -54,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
          actList.appendChild(option);
       }
 
-      //Set initial scene to first scene
+      //Set initial scene to the first scene of the first act
       for (let scene of play.acts[0].scenes)
       {
          option = ce('option');
@@ -78,7 +80,20 @@ document.addEventListener("DOMContentLoaded", function() {
             sceneList.appendChild(option);
          }
       });
+
       //populate select list for characters
+      for (let persona of play.persona)
+      {
+         option = ce('option');
+         option.textContent = persona.player;
+         playerList.appendChild(option);
+      }
+
+      //Find selected player and their scenes
+      playerList.addEventListener('change', function (e)
+      {
+         let currPlayer = play.persona.find(player => e.target.value);
+      });
       //update display of current scene
    }});
 
