@@ -56,10 +56,10 @@ document.addEventListener("DOMContentLoaded", function() {
       //get the play
       let playUrl = url + '?name=' + e.target.value;
       play = await getPlay(playUrl);
-      console.log(play);
 
       //populate initial play information
-      updateScene(play, play.acts[0], play.acts[0].scenes[0]);
+      play.makeMarkup(qs('#playHere'), qs('#actHere'), qs('#sceneHere'));
+      //updateScene(play, play.acts[0], play.acts[0].scenes[0]);
 
       let option;
       //populate the select list for the acts
@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
       //Set initial scene to the first scene of the first act
       for (let scene of play.acts[0].scenes)
       {
-         console.log(scene);
          option = ce('option');
          option.textContent = scene.name;
          sceneList.appendChild(option);
@@ -84,7 +83,8 @@ document.addEventListener("DOMContentLoaded", function() {
       {
          //gets the current act from select list
          let currAct = play.acts.find(act => act.name === e.target.value);
-         updateScene(play, currAct, currAct.scenes[0]);
+         //updateScene(play, currAct, currAct.scenes[0]);
+         play.makeMarkup(qs('#playHere'), qs('#actHere'), qs('#sceneHere'));
 
          //populate scenes based on current act
          sceneList.innerHTML = '';
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
             //populate the html based on the scene data
             //updateScene(play, currAct, currScene);
             console.log(currScene);
-            currScene.makeMarkup();
+            play.makeMarkup(qs('#playHere'), qs('#actHere'), qs('#sceneHere'));
          });
       });
 
@@ -114,7 +114,8 @@ document.addEventListener("DOMContentLoaded", function() {
          //get the current scene
          let currScene = play.acts[0].scenes.find(scene => scene.name === e.target.value);
          //populate the html based on the scene data
-         updateScene(play, play.acts[0], currScene);
+         //updateScene(play, play.acts[0], currScene);
+         play.makeMarkup(qs('#playHere'), qs('#actHere'), qs('#sceneHere'));
       });
 
       //populate select list for characters
