@@ -28,18 +28,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
    const playList = qs('#playList');
    let actList = qs('#actList');
+   let sceneList = qs('#sceneList');
+   let play;
    //TODO maybe separate each selectList into their own event listener
    playList.addEventListener('change', async function(e)
    {
+      if (e.target.value != 0) {
       //get the play
       let playUrl = url + '?name=' + e.target.value;
-      let play = await getPlay(playUrl);
+      play = await getPlay(playUrl);
       console.log(play);
 
       //populate the title
       qs('#playHere h2').textContent = play.title;
 
-      let actList = qs('#actList');
       actList.innerHTML = '';
       //populate the select list for the acts
       let option = ce('option');
@@ -52,24 +54,60 @@ document.addEventListener("DOMContentLoaded", function() {
          actList.appendChild(option);
       }
 
+      sceneList.innerHTML = '';
+      let sceneOption = ce('option');
+      sceneOption.textContent = 'Scenes';
+      sceneList.appendChild(sceneOption);
+
       //find scenes for current act
-      let currAct = qs('#actList').selected;
-      //console.log(currAct);
-      //populate select list for scene
-      //for (let scene of )
+      actList.addEventListener('change', function (e)
+      {
+         //gets the current act from select list
+         let currAct = play.acts.find(act => act.name === e.target.value);
+
+         //populate scenes based on current act
+         let option;
+         if (e.target.value != 'ACTS')
+         {
+            for (let scene of currAct.scenes)
+            {
+               option = ce('option');
+               option.textContent = scene.name;
+               sceneList.appendChild(option);
+            }
+         }
+      });
       //populate select list for characters
       //update display of current scene
-   });
+   }});
 
-   
+   /*
    actList.addEventListener('change', function (e)
    {
-      //TODO get the current act from select list
+      //gets the current act from select list
       console.log(e.target.value);
-      //populate scenes based on current act
-   });
+      let currAct;
+      for (let act of play.acts)
+      {
+         if (e.target.value === act.name)
+            currAct = act;
+      }
 
-   let sceneList = qs('#sceneList');
+      //populate scenes based on current act
+      let sceneList = qs('#sceneList');
+      sceneList.innerHTML = '';
+      let option = ce('option');
+      option.textContent = 'Scenes';
+      option.value = 0;
+      sceneList.appendChild(option);
+      for (let scene of currAct.scenes)
+      {
+         option = ce('option');
+         option.textContent = scene.name;
+         sceneList.appendChild(option);
+      }
+   }); */
+
    sceneList.addEventListener('change', function (e)
    {
       //get the current scene
