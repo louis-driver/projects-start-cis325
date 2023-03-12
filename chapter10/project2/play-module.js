@@ -23,26 +23,16 @@ export class Play
             this.acts.push(new Act(act));
         }   
     }
-
-    print()
-    {
-        console.log(this.title);
-        console.log(this.titleShort);
-        console.log(this.acts)
-    }
     //Some function
     //functionName() { do something / return something}
     makeMarkup(playContainer, actContainer, sceneContainer)
     {
-        console.log(playContainer);
-        console.log(actContainer);
-        console.log(sceneContainer);
+        //console.log('Play:' + sceneContainer);
         playContainer.innerHTML = '';
         let playTitle = ce('h2');
         playTitle.textContent = this.title;
         playContainer.appendChild(playTitle);
         this.acts[0].makeMarkup(playContainer, actContainer, sceneContainer);
-        console.log(playContainer);
     }
 }
 
@@ -59,13 +49,16 @@ export class Act
     }
     //Some function
     //functionName() { do something / return something}
-    makeMarkup(playContainer, actContainer, sceneContainer)
+    makeMarkup(playContainer, actContainer)
     {
-        console.log(actContainer);
+        //console.log('Act:' + sceneContainer);
         actContainer.innerHTML = '';
         let actName = ce('h3')
         actName.textContent = this.name;
-        this.scenes[0].makeMarkup(actContainer, sceneContainer, 1, 1);
+        let sceneHere = ce('div');
+        sceneHere.id = 'sceneHere';
+        actContainer.appendChild(sceneHere);
+        this.scenes[0].makeMarkup(actContainer, sceneHere, 1, 1);
         playContainer.appendChild(actContainer);
     }
 }
@@ -87,6 +80,7 @@ export class Scene
 
     makeMarkup(actContainer, container, search, player)
     {
+        //console.log('Scene:' + container);
         container.innerHTML = '';
         let sceneName = ce('h4');
         sceneName.textContent = this.name;
