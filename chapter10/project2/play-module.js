@@ -1,11 +1,5 @@
 /* In this module, create three classes: Play, Act, and Scene. */
 
-function qs(selector) {
-    return document.querySelector(selector);
- }
- function qsa(selector) {
-    return document.querySelectorAll(selector);
- }
  function ce(element) {
     return document.createElement(element);
 }
@@ -23,11 +17,9 @@ export class Play
             this.acts.push(new Act(act));
         }   
     }
-    //Some function
-    //functionName() { do something / return something}
+
     makeMarkup(playContainer, actContainer, sceneContainer)
     {
-        //console.log('Play:' + sceneContainer);
         playContainer.innerHTML = '';
         let playTitle = ce('h2');
         playTitle.textContent = this.title;
@@ -47,18 +39,15 @@ export class Act
             this.scenes.push(new Scene(scene));
         }
     }
-    //Some function
-    //functionName() { do something / return something}
-    makeMarkup(playContainer, actContainer)
+
+    makeMarkup(playContainer, actContainer, sceneContainer)
     {
         //console.log('Act:' + sceneContainer);
         actContainer.innerHTML = '';
-        let actName = ce('h3')
+        let actName = ce('h3');
         actName.textContent = this.name;
-        let sceneHere = ce('div');
-        sceneHere.id = 'sceneHere';
-        actContainer.appendChild(sceneHere);
-        this.scenes[0].makeMarkup(actContainer, sceneHere, 1, 1);
+        actContainer.appendChild(actName);
+        this.scenes[0].makeMarkup(actContainer, sceneContainer, 1, 1);
         playContainer.appendChild(actContainer);
     }
 }
@@ -68,7 +57,6 @@ export class Scene
     constructor(scene)
     {
         //Assign values
-        //this.document = document;
         this.name = scene.name;
         this.title = scene.title;
         this.stageDirection = scene.stageDirection;
@@ -80,7 +68,6 @@ export class Scene
 
     makeMarkup(actContainer, container, search, player)
     {
-        //console.log('Scene:' + container);
         container.innerHTML = '';
         let sceneName = ce('h4');
         sceneName.textContent = this.name;

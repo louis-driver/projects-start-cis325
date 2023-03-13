@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
    const sceneContainer = qs('#sceneHere');
 
    let play;
+   let currPlayer;
    playList.addEventListener('change', async function(e)
    {
       //Only update if a play is selected
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
       play = await getPlay(playUrl);
 
       play.makeMarkup(playContainer, actContainer, sceneContainer);
-      console.log(document);
+      //console.log(document);
    
       let option;
       //populate the select list for the acts
@@ -79,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
    {
       //gets the current act from select list
       let currAct = play.acts[e.target.selectedIndex];
-      console.log()
       currAct.makeMarkup(playContainer, actContainer, sceneContainer);
 
       //populate scenes based on current act
@@ -93,11 +93,13 @@ document.addEventListener("DOMContentLoaded", function() {
       //get the current scene
       let currScene = currAct.scenes[e.target.selectedIndex];
       //populate the html based on the scene data
-      currScene.makeMarkup(playContainer, actContainer, sceneContainer);
-      console.log(document);
+      //Calls the Play.makeMarkup()???
+      //currScene.makeMarkup(playContainer, actContainer, sceneContainer);
+      let search;
+      currScene.makeMarkup(actContainer, sceneContainer, search, currPlayer);
+      //console.log(document);
    });
 
-   //TODO find how to get selected act and scene at the same time
    /*
    playList.addEventListener('change', async function(e)
    {
