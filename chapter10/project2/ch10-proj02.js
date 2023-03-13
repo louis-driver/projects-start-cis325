@@ -12,7 +12,7 @@ async function getPlay(url)
    try {
       let response = await fetch(url);
       let data = await response.json();
-      let play = new plays.Play(data, document);
+      let play = new plays.Play(data);
       return play;
    }
    catch (err) {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
    const sceneContainer = qs('#sceneHere');
 
    let play;
-   let currPlayer;
+   let currPlayer = '';
    playList.addEventListener('change', async function(e)
    {
       //Only update if a play is selected
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let playUrl = url + '?name=' + e.target.value;
       play = await getPlay(playUrl);
 
-      play.makeMarkup(playContainer, actContainer, sceneContainer);
+      play.makeMarkup(playContainer, actContainer, sceneContainer, currPlayer);
       //console.log(document);
    
       let option;
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
    {
       //gets the current act from select list
       let currAct = play.acts[e.target.selectedIndex];
-      currAct.makeMarkup(playContainer, actContainer, sceneContainer);
+      currAct.makeMarkup(playContainer, actContainer, sceneContainer, currPlayer);
 
       //populate scenes based on current act
       populateNameList(sceneList, currAct.scenes);
@@ -98,6 +98,18 @@ document.addEventListener("DOMContentLoaded", function() {
       let search;
       currScene.makeMarkup(actContainer, sceneContainer, search, currPlayer);
       //console.log(document);
+   });
+
+   playerList.addEventListener('change', function (e)
+   {
+      if (e.target.selectedIndex != 0)
+         currPlayer = play.persona[e.target.selectedIndex-1].player;
+      else
+         currPlayer = '';
+      
+      let currScene = play.acts[actList.selectedIndex].scenes[sceneList.selectedIndex];
+      let search = '';
+      currScene.makeMarkup(actContainer, sceneContainer, search, currPlayer);
    });
 
    /*

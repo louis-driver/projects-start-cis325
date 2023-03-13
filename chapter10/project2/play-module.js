@@ -18,13 +18,13 @@ export class Play
         }   
     }
 
-    makeMarkup(playContainer, actContainer, sceneContainer)
+    makeMarkup(playContainer, actContainer, sceneContainer, player)
     {
         playContainer.innerHTML = '';
         let playTitle = ce('h2');
         playTitle.textContent = this.title;
         playContainer.appendChild(playTitle);
-        this.acts[0].makeMarkup(playContainer, actContainer, sceneContainer);
+        this.acts[0].makeMarkup(playContainer, actContainer, sceneContainer, player);
     }
 }
 
@@ -40,14 +40,14 @@ export class Act
         }
     }
 
-    makeMarkup(playContainer, actContainer, sceneContainer)
+    makeMarkup(playContainer, actContainer, sceneContainer, player)
     {
         //console.log('Act:' + sceneContainer);
         actContainer.innerHTML = '';
         let actName = ce('h3');
         actName.textContent = this.name;
         actContainer.appendChild(actName);
-        this.scenes[0].makeMarkup(actContainer, sceneContainer, 1, 1);
+        this.scenes[0].makeMarkup(actContainer, sceneContainer, 1, player);
         playContainer.appendChild(actContainer);
     }
 }
@@ -94,6 +94,10 @@ export class Scene
             div.classList.add('speech');
             //if (player && sp.speaker != player && player != 0)
                 //return div;
+            //console.log("Speaker: " + sp.speaker);
+            //console.log("Player: " + player);
+            if (sp.speaker != player && player != '')
+                return div;
             
             let speaker = ce('span');
             speaker.textContent = sp.speaker;
