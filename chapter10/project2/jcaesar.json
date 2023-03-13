@@ -10,8 +10,8 @@ const caesar = `
        },
        {
          "position":1,
-         "player":"ANTHONY",
-         "desc":"Marcus Anthony, son to the late, and nephew to the present king"
+         "player":"ANTONY",
+         "desc":"Marcus Antony, son to the late, and nephew to the present king"
        },
        {
          "position":1,
