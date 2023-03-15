@@ -8,7 +8,7 @@ export class Play
 {
     constructor(content)
     {
-        //Assign values
+        //Assign values from play
         this.title = content.title;
         this.titleShort = content.short;
         this.persona = content.persona;
@@ -32,7 +32,7 @@ export class Act
 {
     constructor(act)
     {
-        //Assign values
+        //Assign values from act
         this.name = act.name;
         this.scenes = new Array();
         for (let scene of act.scenes) {
@@ -42,7 +42,6 @@ export class Act
 
     makeMarkup(playContainer, actContainer, sceneContainer, player)
     {
-        //console.log('Act:' + sceneContainer);
         actContainer.innerHTML = '';
         let actName = ce('h3');
         actName.textContent = this.name;
@@ -56,7 +55,7 @@ export class Scene
 {
     constructor(scene)
     {
-        //Assign values
+        //Assign values from scene
         this.name = scene.name;
         this.title = scene.title;
         this.stageDirection = scene.stageDirection;
@@ -92,10 +91,6 @@ export class Scene
             
             let div = ce('div');
             div.classList.add('speech');
-            //if (player && sp.speaker != player && player != 0)
-                //return div;
-            //console.log("Speaker: " + sp.speaker);
-            //console.log("Player: " + player);
             if (sp.speaker != player && player != '')
                 return div;
             
