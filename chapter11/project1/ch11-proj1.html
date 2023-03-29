@@ -22,6 +22,9 @@
 ------------------------------------------------------------------------------------------------------------------
 */
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         // grab one sample movie
@@ -47,7 +50,9 @@ class App extends React.Component {
 ------------------------------------------------------------------------------------------------------------------
 */
 class MovieForm extends React.Component {
-
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
@@ -92,48 +97,49 @@ class MovieForm extends React.Component {
 ------------------------------------------------------------------------------------------------------------------
 */
 class MovieList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-
-render() {
-    return (
-        <div className="column is-half">
-            <ul className="columns is-multiline">
-                <SingleMovie  /> 
-            </ul>   
-        </div>   
-    );
-  }
-
+    render() {
+        return (
+            <div className="column is-half">
+                <ul className="columns is-multiline">
+                    {this.props.movies.map(m => <SingleMovie movie={m} key={m.id} />)}
+                </ul>   
+            </div>   
+        );
+    }
 }
 
 /* 
 ------------------------------------------------------------------------------------------------------------------
 */
 class SingleMovie extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-
-render() {
-    return (
-        <li className="column is-one-third-desktop is-half-tablet"  >
-            <div className="card">
-                <div className="card-image">
-                <figure className="image is-2by3">
-                    <img src="https://image.tmdb.org/t/p/w185/sm8iVzA7kRp0d4BSIsgXjsSBMKV.jpg"  alt="Sample Title" />
-                </figure>
-                </div>
-                <div className="card-content has-text-centered content-rectangle">
-                    <h2 className="title is-6">Sample Title (000 min)</h2>
-                    <p className="is-size-7">Sample tagline</p>
-                </div>    
-                <footer className="card-footer">
-                    <MovieLink id="sm8iVzA7kRp0d4BSIsgXjsSBMKV" />
-                </footer>                                      
-            </div>                
-        </li>
-    )
-
-}
-
+    render() {
+        return (
+            <li className="column is-one-third-desktop is-half-tablet"  >
+                <div className="card">
+                    <div className="card-image">
+                    <figure className="image is-2by3">
+                        <img src={"https://image.tmdb.org/t/p/w185" + this.props.movie.poster} alt={this.props.movie.title} />
+                    </figure>
+                    </div>
+                    <div className="card-content has-text-centered content-rectangle">
+                        <h2 className="title is-6">{this.props.movie.title} ({this.props.movie.runtime} min)</h2>
+                        <p className="is-size-7">{this.props.movie.tagline}</p>
+                    </div>    
+                    <footer className="card-footer">
+                        <MovieLink id={this.props.movie.tmdbID} />
+                    </footer>                                      
+                </div>                
+            </li>
+        )
+    }
 }
 
 
@@ -144,7 +150,6 @@ const MovieLink = props => {
   return (
         <a className="button card-footer-item" 
             href={ "https://www.themoviedb.org/movie/" + props.id } >
-
                 <img src="images/tmdb.svg" width="30" />
         </a>    
     );
