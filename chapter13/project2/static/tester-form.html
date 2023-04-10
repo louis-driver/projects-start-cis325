@@ -44,6 +44,7 @@
         <label class="label">Exchange</label>
         <input class="input" type="text" value="Nasdaq Global Select" id="exchange" name="exchange">      
         
+        <!-- method="..." did not appear to allow me to use PUT or DELETE in place of POST -->
         <div class="box">
             <button class="button is-info" id="btnInsert" formaction="http://localhost:8080/modify/insert" method="POST">
               Insert (HTTP POST)

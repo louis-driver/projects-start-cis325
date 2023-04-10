@@ -22,6 +22,8 @@ const handleSingleSymbol = (companyProvider, app) => {
     });
 };
 
+/*	Was unsuccessful in using PUT because the tester-form.html's formaction
+	didn't seem to allow method="PUT" */
 // update an existing company
 const updateCompany = (companyProvider, app) => {
 	app.post('/modify/update', (req, res) => {
@@ -73,6 +75,8 @@ const insertCompany = (companyProvider, app) => {
 	});
 };
 
+/*	Was unsuccessful in using DELETE because the tester-form.html's formaction
+	didn't seem to allow method="DELETE" */
 // delete an existing company
 const deleteCompany = (companyProvider, app) => {
 	app.post('/modify/delete', (req, res) => {
