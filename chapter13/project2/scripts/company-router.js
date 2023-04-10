@@ -52,15 +52,24 @@ const insertCompany = (companyProvider, app) => {
 		console.log('called the insertCompany method');
 		const companies = companyProvider.getData();
 		console.log(req.body);
-		companies.push({
-			symbol: req.body.symbol.toUpperCase(),
-			name: req.body.company,
-			sector: req.body.sector,
-			sub: req.body.sub,
-			address: req.body.address,
-			exchange: req.body.exchange
-		});
-		res.send (`Company with id=${req.body.symbol} was inserted`);
+		// find the company based on the id
+		const idToFind = req.body.symbol.toUpperCase();
+		 // search the array of objects for a match
+		 let indx = companies.findIndex(c => c.symbol == idToFind);
+		 if (indx >= 0) {
+		  res.send (`${idToFind} already exists`);
+		 }
+		 else {
+			companies.push({
+				symbol: req.body.symbol.toUpperCase(),
+				name: req.body.company,
+				sector: req.body.sector,
+				sub: req.body.sub,
+				address: req.body.address,
+				exchange: req.body.exchange
+			});
+			res.send (`Company with id=${req.body.symbol} was inserted`);
+		}
 	});
 };
 
@@ -80,6 +89,7 @@ const deleteCompany = (companyProvider, app) => {
 		 else {
 			companies.splice(indx, 1);
 		 }
+		 res.send (`Company with id=${req.body.symbol} was deleted`);
 	});
 };
 
