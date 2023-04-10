@@ -27,8 +27,8 @@ const updateCompany = (companyProvider, app) => {
 	app.post('/modify/update', (req, res) => {
 		console.log('called the updateCompany method');
 		const companies = companyProvider.getData();
-		// find the photo based on the id
 		console.log(req.body);
+		// find the company based on the id
 		const idToFind = req.body.symbol.toUpperCase();
 		 // search the array of objects for a match
 		 let indx = companies.findIndex(c => c.symbol == idToFind);
@@ -51,7 +51,6 @@ const insertCompany = (companyProvider, app) => {
 	app.post('/modify/insert', (req, res) => {
 		console.log('called the insertCompany method');
 		const companies = companyProvider.getData();
-		// find the photo based on the id
 		console.log(req.body);
 		companies.push({
 			symbol: req.body.symbol.toUpperCase(),
@@ -70,7 +69,7 @@ const deleteCompany = (companyProvider, app) => {
 	app.post('/modify/delete', (req, res) => {
 		console.log('called the deleteCompany method');
 		const companies = companyProvider.getData();
-		// find the photo based on the id
+		// find the company based on the id
 		console.log(req.body);
 		const idToFind = req.body.symbol.toUpperCase();
 		 // search the array of objects for a match
@@ -83,7 +82,6 @@ const deleteCompany = (companyProvider, app) => {
 		 }
 	});
 };
-
 
 const jsonMessage = (msg) => {
     return { message: msg };
