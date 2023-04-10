@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="tester.js"></script>
-  <!--<script src="file-handler.js"></script>-->
+   <!-- <script src="tester.js"></script> -->
 </head>
 <body>
     <article class="section">
@@ -46,13 +45,13 @@
         <input class="input" type="text" value="Nasdaq Global Select" id="exchange" name="exchange">      
         
         <div class="box">
-            <button class="button is-info" id="btnInsert">
+            <button class="button is-info" id="btnInsert" formaction="http://localhost:8080/modify/insert" method="POST">
               Insert (HTTP POST)
             </button>
             <button class="button is-primary" id="btnUpdate"  formaction="http://localhost:8080/modify/update" method="POST">
               Update (HTTP PUT)
             </button>        
-            <button class="button is-danger" id="btnDelete">
+            <button class="button is-danger" id="btnDelete"  formaction="http://localhost:8080/modify/delete" method="POST">
               Delete (HTTP DELETE)
             </button>           
         </div>
