@@ -7,6 +7,7 @@ const handleAll = (companyProvider, app) => {
 	resp.json(companies);
     } );
 }
+
 // return just the requested company
 const handleSingleSymbol = (companyProvider, app) => {
     app.get('/:id', (req,resp) => {
@@ -21,11 +22,6 @@ const handleSingleSymbol = (companyProvider, app) => {
     });
 };
 
-const modify = (companyProvider, app) => {
-	app.get('/modify', (req, res) => {
-		console.log('called the modify method');
-	});
-};
 // update an existing company
 const updateCompany = (companyProvider, app) => {
 	app.post('/modify/update', (req, res) => {
@@ -33,7 +29,7 @@ const updateCompany = (companyProvider, app) => {
 		const companies = companyProvider.getData();
 		// find the photo based on the id
 		console.log(req.body);
-		const idToFind = req.body.symbol;
+		const idToFind = req.body.symbol.toUpperCase();
 		 // search the array of objects for a match
 		 let indx = companies.findIndex(c => c.symbol == idToFind);
 		 if (indx < 0) {
@@ -51,9 +47,42 @@ const updateCompany = (companyProvider, app) => {
 };
 
 // insert a new company
-
+const insertCompany = (companyProvider, app) => {
+	app.post('/modify/insert', (req, res) => {
+		console.log('called the insertCompany method');
+		const companies = companyProvider.getData();
+		// find the photo based on the id
+		console.log(req.body);
+		companies.push({
+			symbol: req.body.symbol.toUpperCase(),
+			name: req.body.company,
+			sector: req.body.sector,
+			sub: req.body.sub,
+			address: req.body.address,
+			exchange: req.body.exchange
+		});
+		res.send (`Company with id=${req.body.symbol} was inserted`);
+	});
+};
 
 // delete an existing company
+const deleteCompany = (companyProvider, app) => {
+	app.post('/modify/delete', (req, res) => {
+		console.log('called the deleteCompany method');
+		const companies = companyProvider.getData();
+		// find the photo based on the id
+		console.log(req.body);
+		const idToFind = req.body.symbol.toUpperCase();
+		 // search the array of objects for a match
+		 let indx = companies.findIndex(c => c.symbol == idToFind);
+		 if (indx < 0) {
+			res.send (`${idToFind} not found`);
+		 }
+		 else {
+			companies.splice(indx, 1);
+		 }
+	});
+};
 
 
 const jsonMessage = (msg) => {
@@ -63,5 +92,6 @@ module.exports = {
     handleAll,
     handleSingleSymbol,
 	updateCompany,
-	modify
+	insertCompany,
+	deleteCompany
 };
