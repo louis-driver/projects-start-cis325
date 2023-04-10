@@ -1,11 +1,11 @@
-console.log("file start");
+
 // first reference required modules
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const app = express();
-//const __dirname = "/Users/louis/OneDrive/Desktop/Programming/CIS325-projects-start/projects-start-cis325/chapter13/project2/"
-// for now, we will read a json file from public folder
+
+// for now, read a json file from the static folder
 const jsonPath = path.join(__dirname, '../static/companies-data.json');
 // get data using conventional Node callback approach
 let companies;
@@ -29,11 +29,3 @@ function getData() {
 }
 
 module.exports = {getData};
-
-// return all the companies when a root request arrives
-app.get('/', (req,resp) => { resp.json(companies) } );
-// Use express to listen to port
-let port = 7000;
-app.listen(port, () => {
-    console.log("Server running at port= " + port);
-});
