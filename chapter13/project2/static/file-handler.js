@@ -7,23 +7,21 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// reference our own modules assuming listing13.5 and listing13.6
-// were named company-provider and company-router and in the directory listed
+// reference own modules that manage data and routing
 const companyProvider = require('../scripts/company-provider.js');
 const companyHandler = require('../scripts/company-router.js');
 
-const router = express.Router();
-
-// handle requests for static resources
+// handle requests
 app.use(express.static(__dirname));
 companyHandler.handleAll(companyProvider, app);
 companyHandler.handleSingleSymbol(companyProvider, app);
 companyHandler.updateCompany(companyProvider, app);
+companyHandler.insertCompany(companyProvider, app);
+companyHandler.deleteCompany(companyProvider, app);
 // for anything else, display 404 errors
-/*
 app.use( (req,resp) => {
     resp.status(404).send('Unable to find the requested resource!');
-}); */
+});
 
 // use port in .env file or 8080
 const port = process.env.PORT || 8080;
