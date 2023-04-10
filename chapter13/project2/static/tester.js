@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(url);
 
     document.querySelector("#btnInsert").addEventListener('click', postData );
-    document.querySelector("#btnUpdate").addEventListener('click', putData );
+    //document.querySelector("#btnUpdate").addEventListener('click', putData );
     document.querySelector("#btnDelete").addEventListener('click', deleteData );
+
+    //document.querySelector("#btnInsert").addEventListener('click', fetchData );
 
     async function  postData(e) {
         e.preventDefault();
@@ -47,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
             };
 
             const resp = await fetch(url, options);
-            const data = await resp.json();    
+            const data = await resp.json();  
+            console.log(data);  
             return data;
         }
         catch (err) {

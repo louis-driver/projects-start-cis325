@@ -6,22 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="tester.js"></script> 
+  <script src="tester.js"></script>
+  <!--<script src="file-handler.js"></script>-->
 </head>
 <body>
     <article class="section">
-      <form id="stockForm">
+      <form id="stockForm" action="http://localhost:8080/modify/" method="POST">
         <h1 class="title is-4">Tester - Lab 13 - Project 2</h1>
         <div class="box has-background-light">
             <strong>Easy way to test is via:</strong>
             <ol >
-              <li class="ml-3 mt-2">verify GET works using <a href="/adbe">View ADBE link</a> in separate tab</li>
+              <li class="ml-3 mt-2">verify GET works using <a href="http://localhost:8080/adbe">View ADBE link</a> in separate tab</li>
               <li class="ml-3 mt-2">update company info (but not symbol) and use Update button</li>
-              <li class="ml-3 mt-2">verify it worked using <a href="/adbe">View ADBE link</a> in separate tab</li>
+              <li class="ml-3 mt-2">verify it worked using <a href="http://localhost:8080/adbe">View ADBE link</a> in separate tab</li>
               <li class="ml-3 mt-2">delete company via Delete Button</li>
-              <li class="ml-3 mt-2">verify it worked using <a href="/adbe">View ADBE link</a> in separate tab</li>
+              <li class="ml-3 mt-2">verify it worked using <a href="http://localhost:8080/adbe">View ADBE link</a> in separate tab</li>
               <li class="ml-3 mt-2">insert ADBE company via Insert Button</li>
-              <li class="ml-3 mt-2">verify it worked using <a href="/adbe">View ADBE link</a> in separate tab</li>
+              <li class="ml-3 mt-2">verify it worked using <a href="http://localhost:8080/adbe">View ADBE link</a> in separate tab</li>
             </ol>
         </div>
 
@@ -30,7 +31,7 @@
         <input class="input" type="text" value="ADBE" id="symbol" name="symbol">
         
         <label class="label">Name</label>
-        <input class="input" type="text" value="Adobe Systems Inc" id="company" name="company">        
+        <input class="input" type="text" value="" id="company" name="company">        
         
         <label class="label">Sector</label>
         <input class="input" type="text" value="Information Technology" id="sector" name="sector"> 
@@ -48,7 +49,7 @@
             <button class="button is-info" id="btnInsert">
               Insert (HTTP POST)
             </button>
-            <button class="button is-primary" id="btnUpdate">
+            <button class="button is-primary" id="btnUpdate"  formaction="http://localhost:8080/modify/update" method="POST">
               Update (HTTP PUT)
             </button>        
             <button class="button is-danger" id="btnDelete">
