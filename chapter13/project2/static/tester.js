@@ -6,17 +6,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //const url = "https://guarded-sands-59956.herokuapp.com/http-tester.php";
     //const url = "http://www.randyconnolly.com/funwebdev/3rd/http-tester.php";
-    const url = "/" + stockSym.value;   
+    var url = "/" + stockSym.value;   
     console.log(url);
 
     document.querySelector("#btnInsert").addEventListener('click', postData );
-    //document.querySelector("#btnUpdate").addEventListener('click', putData );
+    document.querySelector("#btnUpdate").addEventListener('click', putData );
     document.querySelector("#btnDelete").addEventListener('click', deleteData );
 
-    //document.querySelector("#btnInsert").addEventListener('click', fetchData );
 
     async function  postData(e) {
         e.preventDefault();
+        url = "/" + stockSym.value;
         const data = await fetchData(url,'POST');
         msg.textContent = data.message;
     }
@@ -37,7 +37,11 @@ document.addEventListener("DOMContentLoaded", function() {
     async function fetchData(url, method) {
         try {
             let formData = new FormData(myForm);
+            console.log("Form data:");
+            console.log(formData);
             const encData = new URLSearchParams();
+            console.log("Enc data:");
+            console.log(encData);
             for (let pair of formData) {
                 encData.append(pair[0], pair[1]);
             }
