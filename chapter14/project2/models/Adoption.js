@@ -3,12 +3,12 @@ const mongoose = require ('mongoose');
 const adoptionSchema = new mongoose.Schema({
     id: Number,
     gui: String,
-    contacts: {
+    contacts: [{
         order: Number,
         gender: String,
         firstname: String,
         lastname: String
-    },
+    }],
     university: {
         id: Number,
         name: String,
@@ -22,9 +22,9 @@ const adoptionSchema = new mongoose.Schema({
         classification: String
 
     },
-    adoptions: {
+    adoptions: [{
         id: Number,
-        date: Date,
+        date: String,
         quantity: Number,
         books: {
             id: Number,
@@ -33,7 +33,13 @@ const adoptionSchema = new mongoose.Schema({
             title: String,
             Category: String
         }
-    }
+    }],
+    messages: [{
+        id: Number,
+        date: String,
+        content: String,
+        category: String
+    }]
 });
 //Create model using the schema that maps to adoptions collection in database
 module.exports = mongoose.model('Adoption', adoptionSchema, 'adoptions');
