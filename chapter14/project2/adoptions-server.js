@@ -7,6 +7,7 @@ console.log(process.env.MONGO_URL);
 const mongoose = require('mongoose');
 
 //Create connection with database
+// Note: can change to process.env.MONGO_URL to use your respective connection 
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -17,9 +18,7 @@ db.once('open', () => {
 //Get adoption data model
 const Adoption = require('./models/Adoption.js');
 
-// handle requests
-app.use(express.static(__dirname));
-
+//Handle requests
 //Create route to return adoptions sorted by date
 app.get('/api/adoptions', async (req, resp) => {
     //Returns an array of adoption arrays
@@ -47,7 +46,7 @@ app.get('/api/adoptions', async (req, resp) => {
 //Create route to return adoptions for the object whose id matches the passed id
 app.get('/api/adoptions/:id', async (req, resp) => {
 	const symbolToFind = req.params.id;
-    const uniAdoptions = await Adoption.find({id: symbolToFind}, "-_id adoptions id");
+    const uniAdoptions = await Adoption.find({id: symbolToFind}, "-_id");
     resp.status(200).send({
         status: 'Success',
         data: uniAdoptions
