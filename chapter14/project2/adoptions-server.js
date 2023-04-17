@@ -20,12 +20,27 @@ const Adoption = require('./models/Adoption.js');
 // handle requests
 app.use(express.static(__dirname));
 
-//Create route to return adoptions sorted by date, TODO sort
+//Create route to return adoptions sorted by date
 app.get('/api/adoptions', async (req, resp) => {
-    const allAdoptions = await Adoption.find({}, "-_id id adoptions.id adoptions.date").sort({"adoptions.date": 1});
+    //Returns an array of adoption arrays
+    const allAdoptions = (await Adoption.find({}, "-_id").lean());
+    
+    //Merge the adoption arrays into a single array containing the individual adoptions
+    const mergedAdoptions = [];
+    allAdoptions.forEach(array => {
+        let adoptions = array.adoptions;
+        adoptions.forEach(item => {mergedAdoptions.push(item);});
+    });
+
+    //Sort the merged array by date
+    mergedAdoptions.sort(function(a,b) {
+        let dateA = new Date(a.date), dateB = new Date(b.date);
+        return dateA - dateB;
+    });
+    //console.log(mergedAdoptions);
     resp.status(200).send({
         status: 'Success',
-        data: allAdoptions
+        data: mergedAdoptions
     });
 });
 
